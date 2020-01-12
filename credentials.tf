@@ -10,7 +10,7 @@ data "aws_ssm_parameter" "password" {
 }
 
 data "aws_lambda_invocation" "decrypt" {
-  count         = var.lambda_encryption_function = "" ? 0 : 1
+  count         = var.lambda_encryption_function == "" ? 0 : 1
   function_name = var.lambda_encryption_function
   input         = jsonencode({
     map = {
