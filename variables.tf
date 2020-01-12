@@ -157,7 +157,12 @@ variable "lambda_encryption_function" {
 }
 
 variable "additional_users" {
-  type        = map(string, map)
+  type        = map(object({
+    username       = string,
+    password       = string
+    console_access = bool,
+    groups         = list(string),
+  }))
   default     = {}
   description = "Additional users to add to the broker. Key is the username and contains console_access, groups and username, password"
 }
