@@ -11,12 +11,22 @@ You can deploy an encryption and decrypton lambda using [aws-lambda-kms-encrypti
 
 ```hcl
 module "broker" {
-  source             = "git::https://github.com/goci-io/aws-mq-broker.git?ref=tags/<latest-version>"
-  namespace          = "goci"
-  stage              = "staging"
-  region             = "eu1"
-  generate_kms_key   = true
-  broker_config_file = "local broker spec file name"
+  source                     = "git::https://github.com/goci-io/aws-mq-broker.git?ref=tags/<latest-version>"
+  namespace                  = "goci"
+  stage                      = "staging"
+  region                     = "eu1"
+  generate_kms_key           = true
+  broker_config_file         = "local broker spec file name"
+  lambda_encryption_function = "goci-staging-encryption-decrypt"
+
+  additional_users = [
+    {
+      groups         = ["apps"]
+      username       = "encrypted username"
+      password       = "encrypted password"
+      console_access = "no-console-access|console-access"
+    }
+  ]
   ...
 }
 ```
