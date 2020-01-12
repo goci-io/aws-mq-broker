@@ -2,7 +2,7 @@
 resource "aws_cloudwatch_log_group" "general" {
   name              = format("/aws/amazonmq/broker/%s/general", aws_mq_broker.broker.id) 
   tags              = merge(map("LogType", "General"), module.label.tags)
-  kms_key_id        = join("", kms_key_alias.key.*.arn)
+  kms_key_id        = join("", aws_kms_alias.key.*.arn)
   retention_in_days = var.retention_in_days
 }
 
@@ -10,7 +10,7 @@ resource "aws_cloudwatch_log_group" "audit" {
   count             = var.enable_audit_logging ? 1 : 0
   name              = format("/aws/amazonmq/broker/%s/audit", aws_mq_broker.broker.id) 
   tags              = merge(map("LogType", "Audit"), module.label.tags)
-  kms_key_id        = join("", kms_key_alias.key.*.arn)
+  kms_key_id        = join("", aws_kms_alias.key.*.arn)
   retention_in_days = var.retention_in_days_audit
 }
 
