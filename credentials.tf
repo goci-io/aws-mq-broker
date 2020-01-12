@@ -17,7 +17,7 @@ data "aws_lambda_invocation" "decrypt" {
       username = var.username
       password = var.password
     }
-  }))
+  })
 }
 
 locals {
