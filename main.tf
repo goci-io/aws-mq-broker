@@ -35,9 +35,9 @@ resource "aws_security_group" "broker" {
     for_each = length(var.ingress_rules) > 0 ? var.ingress_rules : [local.default_ingress_rule]
 
     content {
-      from_port   = ingress.from_port
-      to_port     = ingress.to_port
-      cidr_blocks = ingress.cidr
+      from_port   = ingress.value.from_port
+      to_port     = ingress.value.to_port
+      cidr_blocks = ingress.value.cidr
       protocol    = "tcp"
     }
   }
