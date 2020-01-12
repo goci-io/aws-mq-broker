@@ -13,5 +13,5 @@ resource "aws_kms_key" "key" {
 resource "aws_kms_alias" "key" {
   count         = local.generate_keys
   name          = "alias/${module.label.id}"
-  target_key_id = aws_kms_key.key.key_id
+  target_key_id = join("", aws_kms_key.key.*.key_id)
 }
