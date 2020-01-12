@@ -22,7 +22,7 @@ resource "aws_mq_configuration" "broker" {
   tags           = module.label.tags
   engine_type    = var.engine
   engine_version = var.engine_version
-  data           = file(format("%s/broker.xml", path.module))
+  data           = file(format("%s/%s.xml", path.module, var.broker_config_file))
 }
 
 resource "aws_security_group" "broker" {
